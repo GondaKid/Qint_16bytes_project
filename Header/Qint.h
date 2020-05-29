@@ -18,6 +18,12 @@ using namespace std;
   resize
 */
 
+/*
+QInt luu chuoi bit o dang Little Endian
+vd:  1   1   0   1   0   1
+   |[0]|[1]|[2]|[3]|[4]|[5]|
+*/
+
 class QInt {
    private:
     deque<bool> arrayBits;  //dynamic bitset arrays
