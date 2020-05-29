@@ -1,9 +1,12 @@
-#include "./Qint.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 class Conversion {
    public:
-    static void RepairString(string& str);
-    static void convertDecimalToBinary(string& DecimalSrc, string& BinaryDest);
-    static void convertBinaryToDecimal(string& BinarySrc, string& DecimalDest);
-    static void convertHexToBinary(string& HexSrc, string& BinDest);
+    static string convertDecToBin(const string& DecimalSrc);
+    static string convertHexToBin(const string& HexSrc);
+    static string convertBinToDec(const string& BinarySrc);
+    static string convertBinToHex(const string& BinarySrc);
 };

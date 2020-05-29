@@ -1,5 +1,10 @@
 #include "../Header/MainLoop.h"
 
+CalculatedLine::CalculatedLine() {
+    srcBase = destBase = Operator = parameter1 = parameter2 = "";
+    elementCount = 0;
+}
+
 bool MainLoop::isOperator(string Opr_check) {
     return (Opr_check == "~" || Opr_check == "rol" || Opr_check == "ror");
 }
@@ -15,15 +20,15 @@ void MainLoop::ParseInput(string line) {
         string_holders.push_back(token);
         line.erase(0, pos + 1);
     }
-
+    cLine.elementCount = string_holders.size();
     cLine.srcBase = string_holders[0];
-    if (string_holders.size() == 3) {
+    if (cLine.elementCount == 3) {
         if (isOperator(string_holders[1]))
             cLine.Operator = string_holders[1];
         else
             cLine.destBase = string_holders[1];
         cLine.parameter1 = string_holders[2];
-    } else if (string_holders.size() == 4) {
+    } else if (cLine.elementCount == 4) {
         cLine.parameter1 = string_holders[1];
         cLine.Operator = string_holders[2];
         cLine.parameter2 = string_holders[3];
@@ -45,4 +50,7 @@ void MainLoop::MainProcess(string pathFileInput, string pathFileOutput) {
         cout << "Input file is not valid! Please try again" << endl;
     inFile.close();
     outFile.close();
+}
+
+void MainLoop::ProcessLine() {
 }

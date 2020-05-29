@@ -6,6 +6,9 @@ struct CalculatedLine {
     string Operator;
     string parameter1;
     string parameter2;
+    int elementCount;
+
+    CalculatedLine();
 };
 
 class MainLoop {
