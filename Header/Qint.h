@@ -1,11 +1,8 @@
 #include <deque>
 #include <fstream>
-#include <iostream>
-#include <string>
 #include <vector>
 
 #include "Conversions.h"
-using namespace std;
 
 /*
   -------DEQUE FUNCTIONS-----------
@@ -31,7 +28,7 @@ class QInt {
    public:
     //-----------------DEFAULT CONSTRUCT & DESTRUCT FUNCTION-------------------
     QInt();
-    QInt(const string& numString, int base);  //Create a Qint from a string with it's base
+    QInt(const string& numString, const int& base);  //Create a Qint from a string with it's base
     ~QInt();
 
     //------------------ULTILITIES--------------------

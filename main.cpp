@@ -1,10 +1,7 @@
-#include <typeinfo>
-
 #include "./Header/MainLoop.h"
 
 int main() {
-    string num = "10110111010110";
-    string dec = Conversion::convertBinToDec(num);
-    cout << dec << endl;
+    MainLoop ml;
+    ml.MainProcess("Qint_16bytes_project/Test_files/input.txt", "Qint_16bytes_project/Test_files/output.txt");
     return 0;
 }

@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-
+#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -9,8 +8,7 @@ class Conversion {
    public:
     static string convertDecToBin(const string& DecimalSrc);
     static string convertHexToBin(const string& HexSrc);
-    static string convertBinToDec(const string& BinarySrc);
-    static string convertBinToHex(const string& BinarySrc);
+    static string convertFromBin(string BinarySrc, const int& destBase);
 
     //------------------ULTILITIES FUNCTIONS-------------------------
     static string StrDivTwo(const string&);

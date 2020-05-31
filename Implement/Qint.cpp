@@ -22,82 +22,81 @@ QInt::QInt() {
     arrayBits.resize(0);
 }
 
-QInt::QInt(const string& numString, int base) {
+QInt::QInt(const string& numString, const int& base) {
     arrayBits.resize(0);
     string binString = numString;
     switch (base) {
-        case 2:
-            break;
         case 10:
             binString = Conversion::convertDecToBin(numString);
             break;
         case 16:
             binString = Conversion::convertHexToBin(numString);
             break;
+        case 2:
+            break;
     }
 
-    for (size_t i = 0; i < binString.length(); i++) {
-        cout << binString[i];
-        if (binString[i] == '1')
-            arrayBits.push_back(1);
-        else
-            arrayBits.push_back(0);
+    for (const char bit : numString) {
+        arrayBits.push_back(bit - '0');
     }
 }
 
+QInt::~QInt() {
+    arrayBits.clear();
+}
 //------------------GET FUNCTIONS--------------------
 string QInt::getBin() {
     string result;
     for (auto bit = cbegin(arrayBits); bit != cend(arrayBits); bit++) {
-        result.push_back(*bit);
+        result.push_back((*bit == true) ? '1' : '0');
     }
     return result;
 }
 
 string QInt::getDec() {
     string binString = getBin();
-    return Conversion::convertBinToDec(binString);
+    return Conversion::convertFromBin(binString, 10);
 }
 
 string QInt::getHex() {
     string binString = getBin();
-    return Conversion::convertBinToHex(binString);
+    return Conversion::convertFromBin(binString, 16);
 }
 
-//-------------------OPERATORS-----------------------------
-QInt QInt::operator+(const QInt& other) {
-    bool flag = 0;
-}
+// //-------------------OPERATORS-----------------------------
+// QInt QInt::operator+(const QInt& other) {
+//     bool flag = 0;
+// }
 
-QInt QInt::operator-(const QInt& other) {
-}
+// QInt QInt::operator-(const QInt& other) {
+// }
 
-QInt QInt::operator*(const QInt& other) {
-}
+// QInt QInt::operator*(const QInt& other) {
+// }
 
-QInt QInt::operator/(const QInt& other) {
-}
+// QInt QInt::operator/(const QInt& other) {
+// }
 
-QInt QInt::operator>>(const unsigned int) {
-}
+// QInt QInt::operator>>(const unsigned int) {
+// }
 
-QInt QInt::operator<<(const unsigned int) {
-}
+// QInt QInt::operator<<(const unsigned int) {
+// }
 
-QInt QInt::operator&(QInt&) {
-}
+// QInt QInt::operator&(QInt&) {
+// }
 
-QInt QInt::operator^(QInt&) {
-}
+// QInt QInt::operator^(QInt&) {
+// }
 
-QInt QInt::operator|(QInt&) {
-}
+// QInt QInt::operator|(QInt&) {
+// }
 
-QInt operator~(QInt&) {
-}
+// QInt operator~(QInt&) {
+// }
 
-QInt QInt::rol() {
-}
+// QInt QInt::rol() {
+// }
 
-QInt QInt::ror() {
-}
+// QInt QInt::ror() {
+// }

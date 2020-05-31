@@ -9,6 +9,7 @@ struct CalculatedLine {
     int elementCount;
 
     CalculatedLine();
+    void getLine();
 };
 
 class MainLoop {
@@ -19,6 +20,6 @@ class MainLoop {
    public:
     bool isOperator(string Opr_check);
     void ParseInput(string line);  //Parse input into CalculatedLine
-    void MainProcess(string pathFileInput, string pathFileOutput);
+    void MainProcess(const string& pathFileInput, const string& pathFileOutput);
     void ProcessLine();
 };
