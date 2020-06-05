@@ -1,6 +1,6 @@
 #include "../Header/MainLoop.h"
 
-CalculatedLine::CalculatedLine() {
+void CalculatedLine::clear() {
     srcBase = destBase = Operator = parameter1 = parameter2 = "";
     elementCount = 0;
 }
@@ -45,21 +45,25 @@ void MainLoop::ParseInput(string line) {
     }
 }
 
+void MainLoop::clearInput() {
+    cLine.clear();
+}
+
 void MainLoop::MainProcess(const string& pathFileInput, const string& pathFileOutput) {
     ifstream inFile;
     inFile.open(pathFileInput);
     ofstream outFile;
     outFile.open(pathFileOutput);
+    int linecount = 1;
     if (inFile.is_open() && outFile.is_open()) {
         string line;                     //Line holder
         while (getline(inFile, line)) {  //reading line to line
-            cout << line << endl;
             ParseInput(line);
-            cLine.getLine();
-            // ProcessLine();
-            // outFile << result;  //writing result into output file
+            ProcessLine();
+            outFile << result << endl;  //writing result into output file
+            cLine.clear();
+            cout << linecount++ << " - Done" << endl;  //clear input after done
         }
-
     } else
         cout << "Input file is not valid! Please try again" << endl;
     inFile.close();
@@ -67,4 +71,59 @@ void MainLoop::MainProcess(const string& pathFileInput, const string& pathFileOu
 }
 
 void MainLoop::ProcessLine() {
+    QInt Qsrc(cLine.parameter1, stoi(cLine.srcBase));
+    if (cLine.Operator == "")  //Trường hợp convert base
+    {
+        if (cLine.destBase == "2")
+            result = Qsrc.getBin();
+        else if (cLine.destBase == "10")
+            result = Qsrc.getDec();
+        else if (cLine.destBase == "16")
+            result = Qsrc.getHex();
+
+    } else if (cLine.Operator == "rol" || cLine.Operator == "ror" || cLine.Operator == "~") {
+        if (cLine.Operator == "rol")
+            Qsrc = Qsrc.rol();
+        else if (cLine.Operator == "ror")
+            Qsrc = Qsrc.ror();
+        else if (cLine.Operator == "~")
+            Qsrc = Qsrc = ~Qsrc;
+
+        if (cLine.srcBase == "2")
+            result = Qsrc.getBin();
+        else if (cLine.srcBase == "10")
+            result = Qsrc.getDec();
+        else if (cLine.srcBase == "16")
+            result = Qsrc.getHex();
+    } else {
+        if (cLine.Operator == ">>" || cLine.Operator == "<<") {
+            int a = atoi(cLine.parameter2.c_str());
+            if (cLine.Operator == ">>")
+                Qsrc = Qsrc >> a;
+            else if (cLine.Operator == "<<")
+                Qsrc = Qsrc << a;
+
+        } else {
+            QInt Q_to(cLine.parameter2, stoi(cLine.srcBase));
+            if (cLine.Operator == "+")
+                Qsrc = Qsrc + Q_to;
+            else if (cLine.Operator == "-")
+                Qsrc = Qsrc - Q_to;
+            else if (cLine.Operator == "*")
+                Qsrc = Qsrc * Q_to;
+            else if (cLine.Operator == "/")
+                Qsrc = Qsrc / Q_to;
+            else if (cLine.Operator == "^")
+                Qsrc = Qsrc ^ Q_to;
+            else if (cLine.Operator == "|")
+                Qsrc = Qsrc | Q_to;
+        }
+
+        if (cLine.srcBase == "2")
+            result = Qsrc.getBin();
+        else if (cLine.srcBase == "10")
+            result = Qsrc.getDec();
+        else if (cLine.srcBase == "16")
+            result = Qsrc.getHex();
+    }
 }
