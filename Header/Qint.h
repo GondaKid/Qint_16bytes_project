@@ -1,29 +1,14 @@
-#include <deque>
+#include <bitset>
 #include <fstream>
 #include <vector>
 
 #include "Conversions.h"
 
-/*
-  -------DEQUE FUNCTIONS-----------
-  push_front/back
-  pop_front/back
-  front/back : return value of front/back element
-  size
-  empty: check if empty
-  clear
-  resize
-*/
-
-/*
-QInt luu chuoi bit o dang Little Endian
-vd:  1   1   0   1   0   1
-   |[0]|[1]|[2]|[3]|[4]|[5]|
-*/
+#define MAX_QINT "01111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
 
 class QInt {
    private:
-    deque<bool> arrayBits;  //dynamic bitset arrays
+    bitset<MAX_SIZE> arrayBits;  //bitset arrays
 
    public:
     //-----------------DEFAULT CONSTRUCT & DESTRUCT FUNCTION-------------------
@@ -32,25 +17,25 @@ class QInt {
     ~QInt();
 
     //------------------ULTILITIES--------------------
-    void flip();  //flip all the bits
-    void set(const size_t& pos, const int& setValue);
-    void push_front(const bool& bit);
-    void push_back(const bool& bit);
-    void removeLeadingZeros();
-    bool isGreaterThan(const QInt& other);  //return 1 if this >= other, 0 if this < other
-    bool isOverflow();
+    void set(const size_t& pos, const int& setValue = 1);  //set value of a bit
+    void push_front(const bool& bit, const int& n);        //push a bit to front
+    void push_back(const bool& bit, const int& n);         //push a bit to back
+
     //------------------GET FUNCTIONS--------------------
-    string getBin();
-    string getDec();
-    string getHex();
-    int getSize();
+    string getBin();  //convert to binary string
+    string getDec();  //convert to decimal string
+    string getHex();  //convert to hexadecimal string
+    int getSize();    //get actual size of arraybits (leading 0s is not included)
     bool isNegative();
-    bool equalZero();
+    bool equalZero();                 //check if QInt is equal zero or not
+    bool isGreaterThan(QInt other);   //return true if this >= other, false if this < other
+    bool isMulOverflow(QInt& other);  //check if the result of multiplucation is overflow or not
+
     //-------------------OPERATORS-----------------------------
-    QInt operator+(const QInt& other);
-    QInt operator-(const QInt& other);
-    QInt operator*(const QInt& other);
-    QInt operator/(const QInt& other);
+    QInt operator+(QInt other);
+    QInt operator-(QInt other);
+    QInt operator*(QInt other);
+    QInt operator/(QInt other);
     QInt& operator=(const QInt& other);
 
     QInt operator>>(const unsigned int& Sbit);
@@ -64,6 +49,6 @@ class QInt {
     QInt ror();
 
     //------------------CONVERT FUNCTIONS--------------------
-    void convertTo2Comp();
-    string convertFromBinTo(const int& destBase);
+    void convertTo2Comp();                         //convert to two's compliment number
+    string convertFromBinTo(const int& destBase);  //convert from QInt to decimal string or hexadecimal string
 };

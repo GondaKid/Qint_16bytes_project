@@ -1,3 +1,5 @@
+#include <bitset>
+
 #include "./Header/MainLoop.h"
 
 int main(int argc, char *argv[]) {

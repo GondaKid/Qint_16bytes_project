@@ -99,7 +99,7 @@ string Conversion::convertTo2Comp(const string& BinarySrc) {
     }
     //check if src string is negative
     if (BinarySrc.length() == MAX_SIZE && BinarySrc.front() == '1')
-        removeLeadingNums(resString, '0');  //remove leading 0s
+        removeLeadingZeros(resString);  //remove leading 0s
     else
         //Add 1(s) to start of result string
         resString = string(MAX_SIZE - resString.length(), '1') + resString;
@@ -122,11 +122,20 @@ string Conversion::DivDecByTwo(const string& DecimalSrc) {
         }
     }
     //delete leading 0s
-    removeLeadingNums(dividedString, '0');
+    removeLeadingZeros(dividedString);
 
     return ((dividedString != "") ? dividedString : "0");
 }
-void Conversion::removeLeadingNums(string& BinarySrc, const char& bit) {
-    while (BinarySrc.front() == bit)
-        BinarySrc.erase(0, 1);
+void Conversion::removeLeadingZeros(string& BinarySrc) {
+    int count = 0;
+    for (auto bit : BinarySrc) {
+        if (bit != '0')
+            break;
+        count++;
+    }
+
+    if (BinarySrc != string(count, '0')) {  //if source is not a string of 0. Ex: 0000000
+        BinarySrc.erase(0, count);
+    } else                              //if source is a string of 0.
+        BinarySrc.erase(0, count - 1);  //left the last 0
 }

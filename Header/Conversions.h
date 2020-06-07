@@ -15,5 +15,5 @@ class Conversion {
 
     //------------------ULTILITIES FUNCTIONS-------------------------
     static string DivDecByTwo(const string& DecimalSrc);  //Divide positive Decimal string by two
-    static void removeLeadingNums(string& BinarySrc, const char& bit);
+    static void removeLeadingZeros(string& BinarySrc);
 };
